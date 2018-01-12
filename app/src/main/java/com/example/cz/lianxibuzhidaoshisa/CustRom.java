@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.example.cz.lianxibuzhidaoshisa.bean.GengXinBean;
+import com.example.cz.lianxibuzhidaoshisa.persenter.GengXinPersenter;
+import com.example.cz.lianxibuzhidaoshisa.view.GengXinView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,9 +106,9 @@ public class CustRom extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void  setEditText(int num){
-        if (editText != null){
-            editText.setText(num+"");
+    public void setEditText(int num) {
+        if (editText != null) {
+            editText.setText(num + "");
         }
     }
 
@@ -112,6 +117,7 @@ public class CustRom extends LinearLayout {
     public void setListener(ClickListener listener) {
         this.listener = listener;
     }
+
 
     public interface ClickListener {
         public void click(int count);

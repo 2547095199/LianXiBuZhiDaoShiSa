@@ -5,6 +5,7 @@ import com.example.cz.lianxibuzhidaoshisa.bean.AddGoWuCheBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.DeleteBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.FenLeiBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.FenLeiYouBean;
+import com.example.cz.lianxibuzhidaoshisa.bean.GengXinBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.GoWuCheBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.ListOfDetailsBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.SouSuoBean;
@@ -62,4 +63,7 @@ public interface Inters {
     @GET("/product/deleteCart")
     Observable<DeleteBean> getD(@QueryMap HashMap<String, String> map);
 
+    //http://120.27.23.105/product/updateCarts?uid=100&sellerid=1&pid=45&selected=0&num=3
+    @GET("/product/updateCarts")
+    Observable<GengXinBean> getGX(@QueryMap HashMap<String, String> map);
 }

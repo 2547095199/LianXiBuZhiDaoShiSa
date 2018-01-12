@@ -14,9 +14,12 @@ import android.widget.Toast;
 import com.example.cz.lianxibuzhidaoshisa.CustRom;
 import com.example.cz.lianxibuzhidaoshisa.R;
 import com.example.cz.lianxibuzhidaoshisa.bean.DeleteBean;
+import com.example.cz.lianxibuzhidaoshisa.bean.GengXinBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.GoWuCheBean;
 import com.example.cz.lianxibuzhidaoshisa.persenter.DeletePersenter;
+import com.example.cz.lianxibuzhidaoshisa.persenter.GengXinPersenter;
 import com.example.cz.lianxibuzhidaoshisa.view.DeleteView;
+import com.example.cz.lianxibuzhidaoshisa.view.GengXinView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -32,13 +35,13 @@ import butterknife.ButterKnife;
  * Created by CZ on 2018/1/5.
  */
 
-public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHolder> implements DeleteView {
+public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHolder> implements DeleteView, GengXinView {
     Context context;
     List<GoWuCheBean.DataBean.ListBean> list;
 
     private Map<String, String> map = new HashMap<>();
     DeletePersenter persenter = new DeletePersenter(this);
-
+    GengXinPersenter persenter2 = new GengXinPersenter(this);
     public GoWuCheAdapter(Context context) {
         this.context = context;
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
@@ -162,6 +165,7 @@ public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHo
         holder.plusViewId.setListener(new CustRom.ClickListener() {
             @Override
             public void click(int count) {
+                persenter2.getData("100",list.get(position).getSellerid()+"",list.get(position).getPid()+"",list.get(position).getSelected()+"",count+"");
                 list.get(position).setNum(count);
                 //刷新适配器
                 notifyDataSetChanged();
@@ -213,6 +217,11 @@ public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHo
 
     @Override
     public void success(DeleteBean bean) {
+        Toast.makeText(context, bean.getMsg() + "", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void success(GengXinBean bean) {
         Toast.makeText(context, bean.getMsg() + "", Toast.LENGTH_SHORT).show();
     }
 
