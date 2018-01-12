@@ -14,11 +14,13 @@ import retrofit2.Response;
  */
 
 public class MyListOfDetailsModel implements ListOfDetailsModel {
+
     @Override
-    public void get(String pscid, String page, final MyListOfDetailsCallBack callBack) {
+    public void get(String pscid, String page, String sort, final MyListOfDetailsCallBack callBack) {
         HashMap<String, String> map = new HashMap<>();
         map.put("pscid", pscid);
         map.put("page", page);
+        map.put("sort", sort);
         MyApp.inters.getLOD(map).enqueue(new Callback<ListOfDetailsBean>() {
             @Override
             public void onResponse(Call<ListOfDetailsBean> call, Response<ListOfDetailsBean> response) {

@@ -61,4 +61,5 @@ public interface Inters {
     //http://120.27.23.105/product/deleteCart?uid=100&pid=1
     @GET("/product/deleteCart")
     Observable<DeleteBean> getD(@QueryMap HashMap<String, String> map);
+
 }

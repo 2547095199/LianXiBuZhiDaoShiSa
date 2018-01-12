@@ -102,6 +102,12 @@ public class SouSuoActivity extends AppCompatActivity implements SouSuoView {
 
 
     private void inini() {
+        fanhui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override

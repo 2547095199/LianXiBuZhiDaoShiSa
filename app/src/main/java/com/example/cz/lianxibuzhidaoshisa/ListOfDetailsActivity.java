@@ -1,6 +1,7 @@
 package com.example.cz.lianxibuzhidaoshisa;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -28,11 +29,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ListOfDetailsActivity extends AppCompatActivity implements ListOfDetailsView {
 
     ListOfDetailsPersenter persenter = new ListOfDetailsPersenter(this);
     List<ListOfDetailsBean.DataBean> list = new ArrayList<ListOfDetailsBean.DataBean>();
+    //    List<PaiXuBean.DataBean> list1 = new ArrayList<PaiXuBean.DataBean>();
     @BindView(R.id.fanhui)
     ImageView fanhui;
     @BindView(R.id.sousuo)
@@ -62,7 +65,7 @@ public class ListOfDetailsActivity extends AppCompatActivity implements ListOfDe
         Intent intent = getIntent();
         pscid = intent.getStringExtra("pscid");
         Toast.makeText(ListOfDetailsActivity.this, pscid + "", Toast.LENGTH_SHORT).show();
-        persenter.getData(pscid + "", "1");
+        persenter.getData(pscid + "", "1", "0");
 
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(manager);
@@ -78,14 +81,14 @@ public class ListOfDetailsActivity extends AppCompatActivity implements ListOfDe
         sv.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                persenter.getData(pscid, page + "");
+                persenter.getData(pscid, page + "", "0");
                 finishFreshAndLoad();
             }
 
             @Override
             public void onLoadmore() {
                 page++;
-                persenter.getData(pscid, page + "");
+                persenter.getData(pscid, page + "", "0");
                 finishFreshAndLoad();
 
             }
@@ -102,6 +105,8 @@ public class ListOfDetailsActivity extends AppCompatActivity implements ListOfDe
 
     @Override
     public void success(final ListOfDetailsBean bean) {
+        list.clear();
+        Toast.makeText(ListOfDetailsActivity.this, bean.getData().get(1).getTitle()+"", Toast.LENGTH_SHORT).show();
         for (int i = 0; i < bean.getData().size(); i++) {
             list.add(bean.getData().get(i));
         }
@@ -121,6 +126,7 @@ public class ListOfDetailsActivity extends AppCompatActivity implements ListOfDe
         });
     }
 
+
     @Override
     public void failuer(String e) {
         Toast.makeText(ListOfDetailsActivity.this, "错误", Toast.LENGTH_SHORT).show();
@@ -139,5 +145,34 @@ public class ListOfDetailsActivity extends AppCompatActivity implements ListOfDe
     protected void onDestroy() {
         super.onDestroy();
         persenter.dsdsdds();
+    }
+
+    @OnClick({R.id.tvZhonghe, R.id.tvXiaoliang, R.id.tvPrice})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            default:
+                break;
+            case R.id.tvZhonghe:
+                tvZhonghe.setTextColor(Color.RED);
+                tvXiaoliang.setTextColor(Color.BLACK);
+                tvPrice.setTextColor(Color.BLACK);
+                Toast.makeText(ListOfDetailsActivity.this, "点击了综合", Toast.LENGTH_SHORT).show();
+                persenter.getData(pscid + "", page + "", "0");
+                break;
+            case R.id.tvXiaoliang:
+                tvZhonghe.setTextColor(Color.BLACK);
+                tvXiaoliang.setTextColor(Color.RED);
+                tvPrice.setTextColor(Color.BLACK);
+                Toast.makeText(ListOfDetailsActivity.this, "点击了销量", Toast.LENGTH_SHORT).show();
+                persenter.getData(pscid + "", page + "", "1");
+                break;
+            case R.id.tvPrice:
+                tvZhonghe.setTextColor(Color.BLACK);
+                tvXiaoliang.setTextColor(Color.BLACK);
+                tvPrice.setTextColor(Color.RED);
+                Toast.makeText(ListOfDetailsActivity.this, "点击了价格", Toast.LENGTH_SHORT).show();
+                persenter.getData(pscid + "", page + "", "2");
+                break;
+        }
     }
 }

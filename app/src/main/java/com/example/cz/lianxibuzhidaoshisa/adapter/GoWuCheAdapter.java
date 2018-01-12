@@ -149,6 +149,7 @@ public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHo
         holder.itemDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                persenter.getData("100", list.get(position).getPid() + "");
                 //list删除数据
                 list.remove(position);
                 setFirst(list);
@@ -165,13 +166,6 @@ public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHo
                 //刷新适配器
                 notifyDataSetChanged();
                 sum(list);
-            }
-        });
-        holder.itemDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                persenter.getData("100", list.get(position).getPid() + "");
-                notifyDataSetChanged();
             }
         });
 

@@ -18,8 +18,8 @@ public class ListOfDetailsPersenter {
         model = new MyListOfDetailsModel();
     }
 
-    public void getData(String pscid, String page) {
-        model.get(pscid, page, new MyListOfDetailsCallBack() {
+    public void getData(String pscid, String page, String sort) {
+        model.get(pscid, page, sort, new MyListOfDetailsCallBack() {
             @Override
             public void success(ListOfDetailsBean bean) {
                 if (view != null) {

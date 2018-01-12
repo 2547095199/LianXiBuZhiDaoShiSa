@@ -27,7 +27,6 @@ public class ListOfDetailsAdapter extends RecyclerView.Adapter<ListOfDetailsAdap
         this.context = context;
         this.list = list;
     }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_listofdetailsadapter, null);
@@ -40,22 +39,23 @@ public class ListOfDetailsAdapter extends RecyclerView.Adapter<ListOfDetailsAdap
         holder.simpleDraweeView.setImageURI(Uri.parse(split[0]));
         holder.title.setText(list.get(position).getTitle());
         holder.price.setText("￥:" + list.get(position).getPrice());
-        if(mOnItemClickListener != null){
+        holder.num.setText("数量是：" + list.get(position).getSalenum());
+        if (mOnItemClickListener != null) {
             //为ItemView设置监听器
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = holder.getLayoutPosition();
-                    mOnItemClickListener.onItemClick(holder.itemView,position);
+                    mOnItemClickListener.onItemClick(holder.itemView, position);
                 }
             });
         }
     }
 
 
-
     private OnItemClickListener mOnItemClickListener;
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
@@ -70,14 +70,17 @@ public class ListOfDetailsAdapter extends RecyclerView.Adapter<ListOfDetailsAdap
         private final SimpleDraweeView simpleDraweeView;
         private final TextView title;
         private final TextView price;
+        private final TextView num;
 
         public MyViewHolder(View view) {
             super(view);
             simpleDraweeView = (SimpleDraweeView) view.findViewById(R.id.simple);
             title = (TextView) view.findViewById(R.id.title);
             price = (TextView) view.findViewById(R.id.price);
+            num = (TextView) view.findViewById(R.id.num);
         }
     }
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }

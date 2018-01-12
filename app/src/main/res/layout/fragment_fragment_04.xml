@@ -7,15 +7,15 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/third_recyclerview"
         android:layout_width="match_parent"
-        android:layout_above="@+id/third_pay_linear"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/third_pay_linear" />
 
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:id="@+id/third_pay_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -61,11 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_10dp"
+            android:background="@drawable/login_btn"
             android:paddingBottom="@dimen/padding_10dp"
             android:paddingLeft="@dimen/margin_30dp"
             android:paddingRight="@dimen/margin_30dp"
             android:paddingTop="@dimen/padding_10dp"
-            android:background="@drawable/login_btn"
             android:text="去结算"
             android:textColor="#000000" />
 

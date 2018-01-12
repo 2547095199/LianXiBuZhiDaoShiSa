@@ -22,6 +22,7 @@ import com.example.cz.lianxibuzhidaoshisa.adapter.ShouyeAdapter;
 import com.example.cz.lianxibuzhidaoshisa.bean.ShouYeBean;
 import com.example.cz.lianxibuzhidaoshisa.persenter.ShouYePersenter;
 import com.example.cz.lianxibuzhidaoshisa.view.ShouYeView;
+import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -70,6 +71,12 @@ public class Fragment_01 extends Fragment implements ShouYeView {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), SouSuoActivity.class);
                 startActivity(intent);
+            }
+        });
+        shaomian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(getActivity(), CaptureActivity.class),0);
             }
         });
         return view;

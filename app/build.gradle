@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.cz.lianxibuzhidaoshisa"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -47,6 +47,7 @@ dependencies {
 
     compile 'com.hjm:BottomTabBar:1.1.2'
     compile 'org.greenrobot:eventbus:3.1.1'
+    compile project(path: ':libzxing')
 
 
 }

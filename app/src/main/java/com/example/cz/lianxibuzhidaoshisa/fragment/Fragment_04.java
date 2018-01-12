@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,9 @@ import com.example.cz.lianxibuzhidaoshisa.adapter.GoWuCheAdapter;
 import com.example.cz.lianxibuzhidaoshisa.bean.GoWuCheBean;
 import com.example.cz.lianxibuzhidaoshisa.persenter.GoWuChePersenter;
 import com.example.cz.lianxibuzhidaoshisa.view.GoWuCheView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +52,7 @@ public class Fragment_04 extends Fragment implements GoWuCheView {
     private View view;
     private Unbinder unbinder;
     private GoWuCheAdapter adapter;
+    List<GoWuCheBean.DataBean> list = new ArrayList<GoWuCheBean.DataBean>();
 
     public Fragment_04() {
         // Required empty public constructor
@@ -58,10 +63,8 @@ public class Fragment_04 extends Fragment implements GoWuCheView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_04, container, false);
-
         persenter.getData("100", "android");
         recyclerview = (RecyclerView) view.findViewById(R.id.third_recyclerview);
-
 //        LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 //        recyclerview.setLayoutManager(manager);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -109,6 +112,7 @@ public class Fragment_04 extends Fragment implements GoWuCheView {
             case R.id.third_allselect:
                 adapter.selectAll(thirdAllselect.isChecked());
                 break;
+
         }
     }
 }
