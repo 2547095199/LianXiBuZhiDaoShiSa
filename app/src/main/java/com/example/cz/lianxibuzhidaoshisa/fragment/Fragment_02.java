@@ -68,7 +68,7 @@ public class Fragment_02 extends Fragment implements FenLeiView, FenLeiYouView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(manager);
         persenter.getData();
         persenter1.getData("1");
@@ -86,9 +86,6 @@ public class Fragment_02 extends Fragment implements FenLeiView, FenLeiYouView {
                 Toast.makeText(getContext(), bean.getData().get(i).getName(), Toast.LENGTH_SHORT).show();
                 int cid = bean.getData().get(i).getCid();
                 persenter1.getData(cid + "");
-
-
-
             }
         });
     }
@@ -96,9 +93,9 @@ public class Fragment_02 extends Fragment implements FenLeiView, FenLeiYouView {
     @Override
     public void success(FenLeiYouBean bean) {
 //        FenLeiYouAdapter adapter = new Fe`nLeiYouAdapter(getActivity(),bean);
-       /// Log.i("bean",bean.getData().get(0).getName());
+        /// Log.i("bean",bean.getData().get(0).getName());
 
-        FenLeiYouAdapter  adapter = new FenLeiYouAdapter(getActivity(),bean.getData());
+        FenLeiYouAdapter adapter = new FenLeiYouAdapter(getActivity(), bean.getData());
         recyclerview.setAdapter(adapter);
 //        Toast.makeText(getContext(), bean.getData().get(0).getName(), Toast.LENGTH_SHORT).show();
 

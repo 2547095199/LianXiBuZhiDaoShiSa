@@ -58,7 +58,7 @@ public class SouSuoActivity extends AppCompatActivity implements SouSuoView {
         recyclerview.setLayoutManager(manager);
 
         ButterKnife.bind(this);
-        persenter.getData("笔记本", "1", "android");
+//        persenter.getData("笔记本", "1", "android");
         springview.setHeader(new DefaultHeader(this));
         springview.setFooter(new DefaultFooter(this));
         //设置SpringView的刷新监听事件
@@ -74,12 +74,13 @@ public class SouSuoActivity extends AppCompatActivity implements SouSuoView {
             public void onLoadmore() {
                 page++;
                 if (TextUtils.isEmpty(shangname.getText().toString())) {
-                    persenter.getData("笔记本", page+"", "android");
+                    persenter.getData("笔记本", page + "", "android");
                 } else {
                     persenter.getData(shangname.getText().toString() + "", page + "", "android");
                 }
 
-                setadapter();
+                adapter = new SouSuoAdapter(SouSuoActivity.this, list, flag);
+                recyclerview.setAdapter(adapter);
                 finishFreshAndLoad();
 
 
@@ -112,7 +113,6 @@ public class SouSuoActivity extends AppCompatActivity implements SouSuoView {
                     recyclerview.setLayoutManager(manager);
                     adapter = new SouSuoAdapter(SouSuoActivity.this, list, flag);
                     recyclerview.setAdapter(adapter);
-                    setadapter();
                 } else if (flag == true) {
                     flag = false;
                     mImage.setImageResource(R.drawable.si);
@@ -120,25 +120,28 @@ public class SouSuoActivity extends AppCompatActivity implements SouSuoView {
                     recyclerview.setLayoutManager(manager);
                     adapter = new SouSuoAdapter(SouSuoActivity.this, list, flag);
                     recyclerview.setAdapter(adapter);
-                    setadapter();
                 }
             }
         });
         sousuo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                list.clear();
                 if (flag == true) {
+                    persenter.getData(shangname.getText().toString(), "1", "android");
                     LinearLayoutManager manager = new LinearLayoutManager(SouSuoActivity.this, LinearLayoutManager.VERTICAL, false);
                     recyclerview.setLayoutManager(manager);
                     adapter = new SouSuoAdapter(SouSuoActivity.this, list, flag);
                     recyclerview.setAdapter(adapter);
                 } else if (flag == false) {
+                    persenter.getData(shangname.getText().toString(), "1", "android");
                     GridLayoutManager manager = new GridLayoutManager(SouSuoActivity.this, 2);
                     recyclerview.setLayoutManager(manager);
                     adapter = new SouSuoAdapter(SouSuoActivity.this, list, flag);
                     recyclerview.setAdapter(adapter);
+
                 }
-                persenter.getData(shangname.getText().toString(), "1", "android");
+
             }
         });
     }

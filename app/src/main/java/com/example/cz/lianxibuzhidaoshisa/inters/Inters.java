@@ -2,6 +2,7 @@ package com.example.cz.lianxibuzhidaoshisa.inters;
 
 
 import com.example.cz.lianxibuzhidaoshisa.bean.AddGoWuCheBean;
+import com.example.cz.lianxibuzhidaoshisa.bean.DeleteBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.FenLeiBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.FenLeiYouBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.GoWuCheBean;
@@ -56,4 +57,8 @@ public interface Inters {
     //http://120.27.23.105/product/searchProducts?keywords=%E7%AC%94%E8%AE%B0%E6%9C%AC&page=1&source=android
     @GET("/product/searchProducts")
     Call<SouSuoBean> getSS(@QueryMap HashMap<String, String> map);
+
+    //http://120.27.23.105/product/deleteCart?uid=100&pid=1
+    @GET("/product/deleteCart")
+    Observable<DeleteBean> getD(@QueryMap HashMap<String, String> map);
 }

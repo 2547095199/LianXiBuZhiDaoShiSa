@@ -36,7 +36,6 @@ public class SouSuoAdapter extends RecyclerView.Adapter {
         this.flag = flag;
         this.context = context;
         this.list = list;
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
     }
 
     @Override
@@ -60,7 +59,7 @@ public class SouSuoAdapter extends RecyclerView.Adapter {
             holder1.price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线（删除线）
             holder1.price.setText("原价：￥" + list.get(position).getBargainPrice());
             String[] split = list.get(position).getImages().split("\\|");
-            ImageLoader.getInstance().displayImage(split[0], holder1.image);
+            ((MyViewHolder) holder).image.setImageURI(Uri.parse(split[0]));
         } else if (holder instanceof ViewHolder01) {
             ViewHolder01 holder1 = (ViewHolder01) holder;
             holder1.title1.setText(list.get(position).getTitle());
@@ -68,7 +67,7 @@ public class SouSuoAdapter extends RecyclerView.Adapter {
             holder1.price1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线（删除线）
             holder1.price1.setText("原价：￥" + list.get(position).getBargainPrice());
             String[] split = list.get(position).getImages().split("\\|");
-            ImageLoader.getInstance().displayImage(split[0], holder1.image1);
+            holder1.image1.setImageURI(Uri.parse(split[0]));
         }
 
     }
@@ -80,14 +79,14 @@ public class SouSuoAdapter extends RecyclerView.Adapter {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView image;
+        private final SimpleDraweeView image;
         private final TextView title;
         private final TextView price;
         private final TextView youhui;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image1);
+            image = (SimpleDraweeView) itemView.findViewById(R.id.image1);
             title = (TextView) itemView.findViewById(R.id.title1);
             price = (TextView) itemView.findViewById(R.id.price1);
             youhui = (TextView) itemView.findViewById(R.id.youhui1);
@@ -97,14 +96,14 @@ public class SouSuoAdapter extends RecyclerView.Adapter {
 
     static class ViewHolder01 extends RecyclerView.ViewHolder {
 
-        private final ImageView image1;
+        private final SimpleDraweeView image1;
         private final TextView title1;
         private final TextView price1;
         private final TextView youhui1;
 
         ViewHolder01(View itemView) {
             super(itemView);
-            image1 = (ImageView) itemView.findViewById(R.id.image1);
+            image1 = (SimpleDraweeView) itemView.findViewById(R.id.image1);
             title1 = (TextView) itemView.findViewById(R.id.title1);
             price1 = (TextView) itemView.findViewById(R.id.price1);
             youhui1 = (TextView) itemView.findViewById(R.id.youhui1);

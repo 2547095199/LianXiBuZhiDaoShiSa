@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.cz.lianxibuzhidaoshisa.adapter.ListOfDetailsAdapter;
 import com.example.cz.lianxibuzhidaoshisa.bean.ListOfDetailsBean;
-import com.example.cz.lianxibuzhidaoshisa.eventbus.UserEvent;
+import com.example.cz.lianxibuzhidaoshisa.event.UserEvent;
 import com.example.cz.lianxibuzhidaoshisa.persenter.ListOfDetailsPersenter;
 import com.example.cz.lianxibuzhidaoshisa.view.ListOfDetailsView;
 import com.liaoinstan.springview.container.DefaultFooter;
@@ -111,9 +111,11 @@ public class ListOfDetailsActivity extends AppCompatActivity implements ListOfDe
         adapter.setOnItemClickListener(new ListOfDetailsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(ListOfDetailsActivity.this, position + "", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(ListOfDetailsActivity.this, XiangQingActivity.class);
-                intent.putExtra("pid", bean.getData().get(position).getPid() + "");
+//                intent.putExtra("pid", bean.getData().get(position).getPid() + "");
+                int pid = bean.getData().get(position).getPid();
+                EventBus.getDefault().postSticky(new UserEvent(pid + ""));
                 startActivity(intent);
             }
         });

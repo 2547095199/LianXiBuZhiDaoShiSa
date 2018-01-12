@@ -9,10 +9,14 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cz.lianxibuzhidaoshisa.CustRom;
 import com.example.cz.lianxibuzhidaoshisa.R;
+import com.example.cz.lianxibuzhidaoshisa.bean.DeleteBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.GoWuCheBean;
+import com.example.cz.lianxibuzhidaoshisa.persenter.DeletePersenter;
+import com.example.cz.lianxibuzhidaoshisa.view.DeleteView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -28,11 +32,12 @@ import butterknife.ButterKnife;
  * Created by CZ on 2018/1/5.
  */
 
-public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHolder> {
+public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHolder> implements DeleteView {
     Context context;
     List<GoWuCheBean.DataBean.ListBean> list;
 
     private Map<String, String> map = new HashMap<>();
+    DeletePersenter persenter = new DeletePersenter(this);
 
     public GoWuCheAdapter(Context context) {
         this.context = context;
@@ -162,7 +167,13 @@ public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHo
                 sum(list);
             }
         });
-
+        holder.itemDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                persenter.getData("100", list.get(position).getPid() + "");
+                notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -204,6 +215,16 @@ public class GoWuCheAdapter extends RecyclerView.Adapter<GoWuCheAdapter.MyViewHo
         }
         notifyDataSetChanged();
         sum(list);
+    }
+
+    @Override
+    public void success(DeleteBean bean) {
+        Toast.makeText(context, bean.getMsg() + "", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void failuer(String e) {
+        Toast.makeText(context, "错误", Toast.LENGTH_SHORT).show();
     }
 
 

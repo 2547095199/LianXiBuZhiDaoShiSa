@@ -10,13 +10,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cz.lianxibuzhidaoshisa.adapter.GoWuCheAdapter;
 import com.example.cz.lianxibuzhidaoshisa.bean.AddGoWuCheBean;
 import com.example.cz.lianxibuzhidaoshisa.bean.XiangQingBean;
+import com.example.cz.lianxibuzhidaoshisa.event.UserEvent;
 import com.example.cz.lianxibuzhidaoshisa.persenter.AddGoWuChePersenter;
 import com.example.cz.lianxibuzhidaoshisa.persenter.XiangQingPersenter;
 import com.example.cz.lianxibuzhidaoshisa.view.AddGoWuCheView;
 import com.example.cz.lianxibuzhidaoshisa.view.XiangQingView;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,16 +52,18 @@ public class XiangQingActivity extends AppCompatActivity implements XiangQingVie
     AddGoWuChePersenter persenter2 = new AddGoWuChePersenter(this);
     List<XiangQingBean> list = new ArrayList<XiangQingBean>();
     private int pid;
+    private GoWuCheAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xiang_qing);
         ButterKnife.bind(this);
-
-        Intent intent = getIntent();
-        String pid = intent.getStringExtra("pid");
-        persenter.getData(pid + "", "android");
+        EventBus.getDefault().register(XiangQingActivity.this);
+//        Intent intent = getIntent();
+//        String pid = intent.getStringExtra("pid");
+//        persenter.getData(pid + "", "android");
+        adapter = new GoWuCheAdapter(this);
         fanhui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +75,7 @@ public class XiangQingActivity extends AppCompatActivity implements XiangQingVie
 
     @Override
     public void success(XiangQingBean bean) {
+        Toast.makeText(XiangQingActivity.this, bean.getMsg() + "", Toast.LENGTH_SHORT).show();
         pid = bean.getData().getPid();
 //        Toast.makeText(XiangQingActivity.this, bean.beangetData().getTitle(), Toast.LENGTH_SHORT).show();
         String[] split = bean.getData().getImages().split("\\|");
@@ -89,7 +98,14 @@ public class XiangQingActivity extends AppCompatActivity implements XiangQingVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(XiangQingActivity.this);
         persenter.dsds();
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING, sticky = true)
+    public void onMoonEvent(UserEvent userEvent) {
+//        tv_b.setText("账号："+userevent.getUsername()+"密码："+userevent.getPasswork());
+        persenter.getData(userEvent.getPid() + "", "android");
     }
 
     @OnClick({R.id.gowuche, R.id.addgowuche})
@@ -101,8 +117,11 @@ public class XiangQingActivity extends AppCompatActivity implements XiangQingVie
 
                 break;
             case R.id.addgowuche:
-                persenter2.getData(pid + "", "75", "android");
+                persenter2.getData(pid + "", "100", "android");
+                adapter.notifyDataSetChanged();
                 break;
         }
     }
+
+
 }

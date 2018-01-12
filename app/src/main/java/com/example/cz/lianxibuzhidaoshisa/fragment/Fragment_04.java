@@ -58,6 +58,7 @@ public class Fragment_04 extends Fragment implements GoWuCheView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_04, container, false);
+
         persenter.getData("100", "android");
         recyclerview = (RecyclerView) view.findViewById(R.id.third_recyclerview);
 
@@ -83,7 +84,7 @@ public class Fragment_04 extends Fragment implements GoWuCheView {
 
     @Override
     public void success(GoWuCheBean bean) {
-        Toast.makeText(getActivity(), bean.getData().get(0).getSellerName() + "", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), bean.getData().get(1).getSellerName() + "", Toast.LENGTH_SHORT).show();
         adapter.add(bean);
     }
 
